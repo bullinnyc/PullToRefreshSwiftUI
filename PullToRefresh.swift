@@ -28,14 +28,10 @@ struct PullToRefresh: UIViewRepresentable {
         guard let tableView = tableView(root: viewHost) else { return }
         
         if let refreshControl = tableView.refreshControl {
-            if isShowing {
-                DispatchQueue.main.async {
-                    refreshControl.beginRefreshing()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    refreshControl.endRefreshing()
-                }
+            DispatchQueue.main.async {
+                isShowing
+                ? refreshControl.beginRefreshing()
+                : refreshControl.endRefreshing()
             }
             
             return
